@@ -13,7 +13,7 @@ function feet_to_pixels(feet) {
 }
 
 function rest_position() {
-    return math.matrix([feet_to_pixels(1), canvas.height - feet_to_pixels(1)])
+    return math.matrix([feet_to_pixels(1), canvas.height - feet_to_pixels(0)])
 }
 
 function max_by_key(arr, key) {
