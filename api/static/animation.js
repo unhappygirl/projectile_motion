@@ -192,7 +192,7 @@ function animate() {
     scrollable.scrollLeft = pos[0] - scrollable.clientWidth / 2;
     scrollable.scrollTop = pos[1] - scrollable.clientHeight / 2;
   }
-  document.getElementById("timeLabel").innerHTML = `${time}s`;
+  document.getElementById("timeLabel").innerHTML = `${time.toFixed(2)}s`;
   frames += 1;
   requestAnimationFrame(animate); // Recursively call animate to create animation
 }
