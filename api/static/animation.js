@@ -12,7 +12,7 @@ function feet_to_pixels(feet) {
 }
 
 function rest_position() {
-  return math.matrix([feet_to_pixels(1), canvas.height - feet_to_pixels(0)]);
+  return math.matrix([myparticle.radius, canvas.height-myparticle.radius]);
 }
 
 function max_by_key(arr, key) {
@@ -42,6 +42,7 @@ function getInputValues() {
   const ispeed = document.getElementById("speedInput").value;
   const angle = document.getElementById("angleInput").value;
   const iheight = document.getElementById("heightInput").value;
+  const radius = document.getElementById("radiusInput").value;
 
   // Return an object with the values
   return {
@@ -49,6 +50,7 @@ function getInputValues() {
     tispeed: feet_to_pixels(ispeed),
     tangle: angle,
     tiheight: feet_to_pixels(iheight),
+    tradius: feet_to_pixels(radius),
   };
 }
 
@@ -130,7 +132,7 @@ function calculate_flight_properties(vx, vy, iheight, gravity) {
 }
 
 function adjust() {
-  const { tgravity, tispeed, tangle, tiheight } = getInputValues();
+  const { tgravity, tispeed, tangle, tiheight, tradius} = getInputValues();
   if (time == 0) {
     const angleInRadians = math.unit(tangle, "deg").toNumber("rad");
 
@@ -139,7 +141,7 @@ function adjust() {
     const vy = -tispeed * Math.sin(angleInRadians); // Vertical velocity (negative because canvas Y increases downward)
 
     myparticle.velocity = math.matrix([vx, vy]);
-
+    myparticle.radius = tradius;
     myparticle.position = math.add(rest_position(), [0, -tiheight]);
     const { t_flight, x_distance, h_max } = calculate_flight_properties(
       pixels_to_feet(vx),
@@ -161,7 +163,7 @@ function adjust() {
 let myparticle = new CircularParticle(
   [feet_to_pixels(1), H - feet_to_pixels(1)],
   [60, 0],
-  10,
+  1,
   "blue"
 );
 init_loop_vars();

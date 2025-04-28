@@ -1,31 +1,33 @@
-// Sync Gravity
-document.getElementById("gravitySlider").addEventListener("input", function () {
-  document.getElementById("gravityInput").value = this.value;
-});
-document.getElementById("gravityInput").addEventListener("input", function () {
-  document.getElementById("gravitySlider").value = this.value;
-});
 
-// Sync Speed
-document.getElementById("speedSlider").addEventListener("input", function () {
-  document.getElementById("speedInput").value = this.value;
-});
-document.getElementById("speedInput").addEventListener("input", function () {
-  document.getElementById("speedSlider").value = this.value;
-});
+function syncInput(sliderId, inputId) {
+  const slider = document.getElementById(sliderId);
+  const input = document.getElementById(inputId);
+  input.addEventListener("input", function () {
+    const newValue = parseFloat(input.value);
+    slider.value = newValue;
+  });
+  slider.addEventListener("input", function () {
+    input.value = this.value;
+  });
+}
 
-// Sync Angle
-document.getElementById("angleSlider").addEventListener("input", function () {
-  document.getElementById("angleInput").value = this.value;
-});
-document.getElementById("angleInput").addEventListener("input", function () {
-  document.getElementById("angleSlider").value = this.value;
-});
+sliderIds = [
+  "gravitySlider",
+  "speedSlider",
+  "angleSlider",
+  "heightSlider",
+  "radiusSlider",
+];
 
-// Sync Height
-document.getElementById("heightSlider").addEventListener("input", function () {
-  document.getElementById("heightInput").value = this.value;
-});
-document.getElementById("heightInput").addEventListener("input", function () {
-  document.getElementById("heightSlider").value = this.value;
-});
+sliderIds.forEach((sliderId) => {
+  const inputId = sliderId.replace("Slider", "Input");
+  const slider = document.getElementById(sliderId);
+  const input = document.getElementById(inputId);
+
+  // Set the initial value of the input to match the slider
+  input.value = slider.value;
+
+  // Sync the slider and input values
+  syncInput(sliderId, inputId);
+}
+);
